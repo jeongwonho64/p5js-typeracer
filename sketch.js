@@ -3,6 +3,7 @@ let correct, wrong;
 let button10,button25,button50;
 let restartbutton;
 let words, wordcnt = 25;
+let stringsofar = "",erros = "", index = 0, ydivider = 25 * 25 * 0.000444444 + 25 * -0.00777778 + 2.77778
 
 //keys that should not be counted as errors (eg. shift, ctrl, alt, etc.)
 let invalidkeys = [9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 173, 174, 175, 181, 182, 183, 224, 225, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255];
@@ -34,9 +35,36 @@ function setwords(wordcntr) {
     }
 }
 
-function setbutton(){
-
-}
+function setbutton(button, x, y, text) {
+    //setting up the buttons
+    //3 buttons with label 10, 25, 50
+    //pressing the button changes the length of the text to the selected number of words
+    button.locate(x, y);
+    button.resize(50, 50);
+    button.color = "#323437";
+    button.textColor = correct
+    button.stroke = "#323437";
+    button.text = text;
+    button.textSize = 20;
+    button.onPress = function () {
+      //when button pressed, change colour to show that it is selected
+      button10.stroke = "#323437";
+      button25.stroke = "#323437";
+      button50.stroke = "#323437";
+      button.stroke = "#d5ad16";
+      //set number of words to 10, 25 or 50
+      wordcnt = int(text);
+      setwords(wordcnt);
+      //reset all the variables such that the text can be typed again
+      stringsofar = "";
+      errors = "";
+      index = 0;
+      hasstarted = false;
+      ended = false;
+      //different position of the text depending on the number of words
+      ydivider = wordcnt * wordcnt * 0.000444444 + wordcnt * -0.00777778 + 2.77778
+    }
+  }
 function draw(){
 
 }
