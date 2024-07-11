@@ -3,12 +3,13 @@ let correct, wrong;
 let button10,button25,button50;
 let restartbutton;
 let words, wordcnt = 25;
-let stringsofar = "",erros = "", index = 0, ydivider = 25 * 25 * 0.000444444 + 25 * -0.00777778 + 2.77778
-
+let stringsofar = "",errors = "", index = 0, ydivider = 25 * 25 * 0.000444444 + 25 * -0.00777778 + 2.77778
+let starttime, endtime, hasstarted = false, ended = false, deltatime;
+let errorcnt = 0, correctcnt = 0;
 //keys that should not be counted as errors (eg. shift, ctrl, alt, etc.)
 let invalidkeys = [9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 173, 174, 175, 181, 182, 183, 224, 225, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255];
 function preload(){
-    latex = loadJSON("scripts/code_latex.json")
+    latex = loadJSON("assets/code_latex.json")
     correct = color("#d1d0c5")
     wrong = color("#ca4754")
     button10 = new Clickable();
@@ -34,7 +35,15 @@ function setwords(wordcntr) {
       words = words + " " + random(latex.words)
     }
 }
-
+function write(str, colored) {
+    //displaying the words
+    push();
+    textSize(width / height * 12);
+    fill(colored);
+    textFont("Inconsolata")
+    text(str, width / 4, height / (ydivider), width / 2)
+    pop();
+  }
 function setbutton(button, x, y, text) {
     //setting up the buttons
     //3 buttons with label 10, 25, 50
@@ -66,5 +75,19 @@ function setbutton(button, x, y, text) {
     }
   }
 function draw(){
-
+    if (!ended) {
+        //if the typing has not ended, display the text and the buttons
+        background("#323437");
+        fill(correct);
+        textSize(ceil(width / height * 11));
+        text("Length of text: ", width / 16, height / 3.5);
+        button10.draw();
+        button25.draw();
+        button50.draw();
+        textWrap(CHAR);
+        //write base text, then the correct string then the errors
+        write(words, color("#646669"));
+        write(stringsofar, correct);
+        write(errors, wrong);
+      }
 }
