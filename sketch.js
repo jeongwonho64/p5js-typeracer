@@ -137,4 +137,37 @@ function keyPressed() {
       index++;
       correctcnt++;
     }
+    else {
+      if (words[index] == " ") {
+        //if error is a whitespace, use an underscore for more visibility
+        errors = errors + "_";
+      }
+      else errors = errors + words[index];
+      //whitespace on the correct string
+      stringsofar = stringsofar + "‎ ‎";
+      index++;
+      errorcnt++;
+    }
+    if (index == words.length) {
+      //game ends when the index reaches the end of the text
+      //one last draw to display the final text
+      background("#323437");
+      fill(correct);
+      textSize(width / height * 11);
+      text("Length of text: ", width / 16, height / 3.5);
+      button10.draw();
+      button25.draw();
+      button50.draw();
+      textWrap(CHAR);
+      write(words, color("#646669"));
+      write(stringsofar, correct);
+      write(errors, wrong);
+      //end the timer and set ended to true such that the game acts as intended
+      endtime = millis();
+      hasstarted = false;
+      ended = true;
+      deltatime = round((endtime - starttime) / 100);
+      deltatime = deltatime / 10;
+      console.log(deltatime);
+    }
   }
