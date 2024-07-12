@@ -90,6 +90,32 @@ function draw(){
         write(stringsofar, correct);
         write(errors, wrong);
       }
+      else {
+        //when ended, display the time, wpm and accuracy
+        text("Time: " + deltatime + "s", width * 5 / 6, height * 5 / 16);
+        text("WPM: " + round(wordcnt * 60 / deltatime), width * 5 / 6, height * 6 / 16);
+        text("Accuracy: " + round(correctcnt / (correctcnt + errorcnt) * 100) + "%", width * 5 / 6, height * 7 / 16);
+        //display the restart button for a new game
+        restartbutton.locate(width * 5 / 6, height * 8 / 16);
+        restartbutton.resize(50, 50);
+        restartbutton.fitImage = true;
+        restartbutton.draw();
+        restartbutton.text = "";
+        restartbutton.cornerRadius = 0;
+        restartbutton.imageScale = 2.0;
+        restartbutton.onPress = function () {
+          //reset all the variables
+          errorcnt = 0;
+          correctcnt = 0;
+          stringsofar = "";
+          errors = "";
+          index = 0;
+          hasstarted = false;
+          ended = false;
+          setwords(wordcnt);
+          ydivider = wordcnt * wordcnt * 0.000444444 + wordcnt * -0.00777778 + 2.77778
+        }
+      }
 }
 function keyPressed() {
     if (ended) {
