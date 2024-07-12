@@ -135,23 +135,8 @@ function keyPressed() {
       //if backspace is pressed, remove the last character
       //if no characters, do nothing
       if(stringsofar.length != 0){
-        //because of HTML text display, an invisible character is added before and after each whitespace
-        if(stringsofar.charAt(stringsofar.length - 1) == "‎"){
-          //if the previous character is a whitespace, remove 3 characters (invis, space, invis)
-          stringsofar = stringsofar.substring(0, stringsofar.length - 3);
-        }
-        else{
-          //normal text
-          stringsofar = stringsofar.substring(0, stringsofar.length - 1);
-        }
-        //doing the same for errors
-        if(errors.charAt(errors.length - 1) == "‎"){
-          errors = errors.substring(0, errors.length - 3);
-        }
-        else{
-          errors = errors.substring(0, errors.length - 1);
-        }
-        //move the index back by 1
+        stringsofar = stringsofar.substring(0, stringsofar.length - 1);
+        errors = errors.substring(0, errors.length - 1);
         index--;
       }
       return;
@@ -159,7 +144,7 @@ function keyPressed() {
     else if (key == words[index]) {
       //correct key pressed
       stringsofar = stringsofar + key;
-      errors = errors + "‎ ‎";
+      errors = errors + " ";
       index++;
       correctcnt++;
     }
@@ -170,7 +155,7 @@ function keyPressed() {
       }
       else errors = errors + words[index];
       //whitespace on the correct string
-      stringsofar = stringsofar + "‎ ‎";
+      stringsofar = stringsofar + words[index];
       index++;
       errorcnt++;
     }
